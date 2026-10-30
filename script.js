@@ -20,20 +20,14 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 // Musique
 const musique = document.getElementById('musique');
 const btnMusique = document.getElementById('btnMusique');
-function jouer() { 
-  if(musique) musique.play().then(() => btnMusique.classList.add('joue')).catch(() => {}); 
-}
-function pause() { 
-  if(musique) musique.pause(); 
-  btnMusique.classList.remove('joue'); 
-}
-if(btnMusique) btnMusique.addEventListener('click', () => musique.paused ? jouer() : pause());
-const btnMsg = document.getElementById('btnMessage');
-if(btnMsg) btnMsg.addEventListener('click', jouer);
+function jouer() { musique.play().then(() => btnMusique.classList.add('joue')).catch(() => {}); }
+function pause() { musique.pause(); btnMusique.classList.remove('joue'); }
+btnMusique.addEventListener('click', () => musique.paused ? jouer() : pause());
+document.getElementById('btnMessage').addEventListener('click', jouer);
 
 // Agrandir les photos
 const lightbox = document.getElementById('lightbox');
-document.querySelectorAll('.grille img').forEach(img => {
+document.querySelectorAll('.grille img, .cartes img').forEach(img => {
   img.addEventListener('click', () => {
     lightbox.querySelector('img').src = img.src;
     lightbox.classList.add('actif');
